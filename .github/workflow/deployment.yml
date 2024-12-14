@@ -16,7 +16,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ap-southeast-1
 
-  steps:
+    steps:
     - name: Checkout repo 
       uses: actions/checkout@v4
 
