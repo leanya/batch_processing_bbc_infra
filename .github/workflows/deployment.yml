@@ -1,14 +1,14 @@
-name: "Terraform"
+name: 'Terraform'
 
 on:
   push:
-    branches:
-      - main
+    branches: main
   pull_request:
 
 jobs:
   terraform:
-	  runs-on: ubuntu-latest
+    name: 'Terraform'
+    runs-on: ubuntu-latest
     outputs:
       instance_public_dns = {{steps.set_dns.outputs.instance_public_dns}}
     env:
@@ -16,7 +16,7 @@ jobs:
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ap-southeast-1
 
-  steps:
+    steps:
     - name: Checkout repo 
       uses: actions/checkout@v4
 
