@@ -10,7 +10,7 @@ jobs:
     name: 'Terraform'
     runs-on: ubuntu-latest
     outputs:
-      instance_public_dns = {{steps.set_dns.outputs.instance_public_dns}}
+      instance_public_dns: ${{steps.set_dns.outputs.instance_public_dns}}
     env:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
