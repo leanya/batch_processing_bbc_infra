@@ -48,4 +48,4 @@ jobs:
     - name: Set output
       id: set_dns
       run: |-
-        echo "instance_public_dns=${{terraform output instance_public_ip}}" >> $GITHUB_OUTPUT
+        echo "instance_public_dns=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
