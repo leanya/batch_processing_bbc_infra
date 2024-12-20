@@ -36,6 +36,9 @@ jobs:
         terraform_wrapper: false
         terraform_version: 1.10.0
 
+    - name: List files
+      run: ls -la ./terra
+
     - name: Terraform Init
       id: terraform_init
       run: terraform init
