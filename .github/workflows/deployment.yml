@@ -9,9 +9,6 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./terra
     outputs:
       instance_public_dns: ${{steps.set_dns.outputs.instance_public_dns}}
     env:
@@ -39,16 +36,20 @@ jobs:
     - name: Terraform Init
       id: terraform_init
       run: terraform init
+      working-directory: ./terraform
     
     - name: Terraform Plan
       id: terraform_plan
       run: terraform plan
+      working-directory: ./terraform
     
     - name: Terraform_Apply
       id: terraform_apply
       run: terraform apply -auto-approve
+      working-directory: ./terraform
 
     - name: Set output
       id: set_dns
       run: |-
         echo "instance_public_dns=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
+      working-directory: ./terraform
