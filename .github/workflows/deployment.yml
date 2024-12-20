@@ -9,6 +9,9 @@ jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./terra
     outputs:
       instance_public_dns: ${{steps.set_dns.outputs.instance_public_dns}}
     env:
