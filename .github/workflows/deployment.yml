@@ -33,19 +33,30 @@ jobs:
         terraform_wrapper: false
         terraform_version: 1.10.0
 
+    - name: Debug Working Directory
+      run: |
+        echo "Current Directory:"
+        pwd
+        echo "Contents:"
+        ls -la
+
     - name: Terraform Init
       id: terraform_init
       run: terraform init
+      working-directory: ./aws_cloud
     
     - name: Terraform Plan
       id: terraform_plan
       run: terraform plan
+      working-directory: ./aws_cloud
     
     - name: Terraform_Apply
       id: terraform_apply
       run: terraform apply -auto-approve
+      working-directory: ./aws_cloud
 
     - name: Set output
       id: set_dns
       run: |-
         echo "instance_public_dns=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
+      working-directory: ./aws_cloud
