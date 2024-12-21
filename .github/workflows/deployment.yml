@@ -43,20 +43,20 @@ jobs:
     - name: Terraform Init
       id: terraform_init
       run: terraform init
-      working-directory: ./terra
+      working-directory: ./aws_cloud
     
     - name: Terraform Plan
       id: terraform_plan
       run: terraform plan
-      working-directory: ./terra
+      working-directory: ./aws_cloud
     
     - name: Terraform_Apply
       id: terraform_apply
       run: terraform apply -auto-approve
-      working-directory: ./terra
+      working-directory: ./aws_cloud
 
     - name: Set output
       id: set_dns
       run: |-
         echo "instance_public_dns=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
-      working-directory: ./terra
+      working-directory: ./aws_cloud
