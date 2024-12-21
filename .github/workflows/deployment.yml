@@ -36,8 +36,12 @@ jobs:
         terraform_wrapper: false
         terraform_version: 1.10.0
 
-    - name: List files
-      run: ls -la ./terra
+    - name: Debug Working Directory
+      run: |
+        echo "Current Directory:"
+        pwd
+        echo "Contents:"
+        ls -la
 
     - name: Terraform Init
       id: terraform_init
