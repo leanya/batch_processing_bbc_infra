@@ -50,7 +50,7 @@ jobs:
       run: terraform plan
       working-directory: ./aws_cloud
     
-    - name: Terraform_Apply
+    - name: Terraform Apply
       id: terraform_apply
       run: terraform apply -auto-approve
       working-directory: ./aws_cloud
