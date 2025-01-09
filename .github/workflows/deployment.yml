@@ -58,3 +58,49 @@ jobs:
       run: |-
         echo "instance_public_dns=$(terraform output -raw instance_public_ip)" >> $GITHUB_OUTPUT
       working-directory: ./aws_cloud
+
+  deployment:
+    needs: [terraform]
+    name: 'Deployment'
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_USER: ${{secrets.DOCKER_USER}}
+      DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      PRIVATE_SSH_KEY: ${{ secrets.AWS_SSH_KEY_PRIVATE }}
+
+    steps:
+    - name: Log into Docker Hub 
+      env: 
+        DOCKER_USER: ${{secrets.DOCKER_USER}}
+        DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
+      run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+    - name: Build images
+      run: docker compose -f docker-compose.yml build
+      working-directory: ./deployment_batch 
+
+    - name: Push images to Docker Hub 
+      run: docker compose -f docker-compose.yml push 
+      working-directory: ./deployment_batch 
+
+    - name: Copy files to EC2 via SSH
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ needs.terraform.outputs.instance_public_dns }}
+        username: ec2-user
+        key: ${{ env.PRIVATE_SSH_KEY }}
+        source: "docker-compose.yml"
+        target: "."
+
+    - name: deploy images to EC2
+      uses: appleboy/ssh-action@master 
+      with:
+        host: ${{ needs.terraform.outputs.instance_public_dns }}
+        username: ec2-user
+        key: ${{ env.PRIVATE_SSH_KEY }}
+        script: |
+          docker-compose stop 
+          docker-compose rm -f
+          docker-compose pull
+          docker-compose up -d
+          docker image prune -f
