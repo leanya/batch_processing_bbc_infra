@@ -69,6 +69,9 @@ jobs:
       PRIVATE_SSH_KEY: ${{ secrets.AWS_SSH_KEY_PRIVATE }}
 
     steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
     - name: Log into Docker Hub 
       env: 
         DOCKER_USER: ${{secrets.DOCKER_USER}}
@@ -89,7 +92,7 @@ jobs:
         host: ${{ needs.terraform.outputs.instance_public_dns }}
         username: ec2-user
         key: ${{ env.PRIVATE_SSH_KEY }}
-        source: "docker-compose.yml"
+        source: "./deployment_batch/docker-compose.yml"
         target: "."
 
     - name: deploy images to EC2
