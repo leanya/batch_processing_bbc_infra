@@ -27,16 +27,17 @@ This includes a two-stage Github Actions pipelines
 
 #### Running the project
 - Configure the following Github secrets to automate deployment to AWS EC2
-| Name                     | Description                                                 |
-|--------------------------|-------------------------------------------------------------|
-| `DOCKER_USER`            | Docker Hub username                                         |
-| `DOCKER_PASSWORD`        | Docker Hub password or access token                         |                 
-| `AWS_ACCESS_KEY_ID`      | AWS access key for terraform access                         |
-| `AWS_SECRET_ACCESS_KEY`  | AWS secret access key for terraform access                  |
-| `PASSWORD`               | Base64-encoded private SSH key for EC2 access           |
 
-- To view the dashboard, go to http://<your-ec2-public-ip>:8501
-- To view the Grafana dashboard, go to http://<your-ec2-public-ip>:3000
+| Name                    | Description                                         |
+|-------------------------|-----------------------------------------------------|
+| `DOCKER_USER`           | Docker Hub username                                 |
+| `DOCKER_PASSWORD`       | Docker Hub password or access token                 |
+| `AWS_ACCESS_KEY_ID`     | AWS access key for Terraform access                 |
+| `AWS_SECRET_ACCESS_KEY` | AWS secret access key for Terraform access          |
+| `AWS_SSH_KEY_PRIVATE`   | Base64-encoded private SSH key for EC2 access       |
+
+- To view the dashboard, go to ```http://<your-ec2-public-ip>:8501```
+- To view the Grafana dashboard, go to ```http://<your-ec2-public-ip>:3000```
 
 #### Reference
 - https://grafana.com/docs/grafana-cloud/send-data/metrics/metrics-prometheus/prometheus-config-examples/docker-compose-linux/
