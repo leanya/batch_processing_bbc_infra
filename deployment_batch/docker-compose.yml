@@ -17,6 +17,7 @@ services:
     image: "lean24/bbc_backend:latest"
     depends_on:
       - db_postgres 
+      - prometheus
     
   frontend:
     build: ./frontend
@@ -25,6 +26,31 @@ services:
       - 8501:8501
     depends_on:
       - db_postgres 
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - 9090:9090
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - 3000:3000
+  
+  postgres_exporter:
+    image: quay.io/prometheuscommunity/postgres-exporter:latest
+    environment:
+      DATA_SOURCE_NAME: postgresql://postgres:postgres@db_postgres:5432/postgres?sslmode=disable
+      PG_EXPORTER_EXTEND_QUERY_PATH: /etc/postgres_exporter/queries.yml
+    volumes:
+      - ./monitoring/queries.yml:/etc/postgres_exporter/queries.yml
+    depends_on:
+      - prometheus
+      - db_postgres
+    ports:
+      - 9187:9187
 
 volumes:
   db_data: 
