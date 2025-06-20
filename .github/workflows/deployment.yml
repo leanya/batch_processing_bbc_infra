@@ -89,14 +89,17 @@ jobs:
     - name: Push images to Docker Hub 
       run: docker compose -f docker-compose.yml push 
       working-directory: ./deployment_batch 
-
+    
     - name: Copy files to EC2 via SSH
       uses: appleboy/scp-action@v0.1.7
       with:
         host: ${{ needs.terraform.outputs.instance_public_dns }}
         username: ec2-user
         key: ${{ env.PRIVATE_SSH_KEY }}
-        source: "./deployment_batch/docker-compose.yml"
+        source: |
+          ./deployment_batch/docker-compose.yml
+          ./deployment_batch/monitoring/prometheus.yml
+          ./deployment_batch/monitoring/queries.yml
         target: "."
 
     - name: deploy images to EC2
