@@ -96,11 +96,11 @@ jobs:
         host: ${{ needs.terraform.outputs.instance_public_dns }}
         username: ec2-user
         key: ${{ env.PRIVATE_SSH_KEY }}
-        source: "./deployment_batch/docker-compose.yml,./deployment_batch/monitoring/prometheus.yml,./deployment_batch/monitoring/queries.yml"
+        source: "deployment_batch/docker-compose.yml,deployment_batch/monitoring/*"
         target: "."
 
     - name: deploy images to EC2
-      uses: appleboy/ssh-action@master 
+      uses: appleboy/ssh-action@master
       with:
         host: ${{ needs.terraform.outputs.instance_public_dns }}
         username: ec2-user

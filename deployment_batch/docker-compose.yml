@@ -30,8 +30,8 @@ services:
   prometheus:
     image: prom/prometheus:latest
     volumes:
-      # - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      # - ./prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
 
@@ -46,8 +46,8 @@ services:
       DATA_SOURCE_NAME: postgresql://postgres:postgres@db_postgres:5432/postgres?sslmode=disable
       PG_EXPORTER_EXTEND_QUERY_PATH: /etc/postgres_exporter/queries.yml
     volumes:
-      # - ./monitoring/queries.yml:/etc/postgres_exporter/queries.yml
-      - ./queries.yml:/etc/postgres_exporter/queries.yml
+      - ./monitoring/queries.yml:/etc/postgres_exporter/queries.yml
+      # - ./queries.yml:/etc/postgres_exporter/queries.yml
     depends_on:
       - prometheus
       - db_postgres
