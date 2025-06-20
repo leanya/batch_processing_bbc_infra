@@ -1,0 +1,25 @@
+row_count_query:
+  query: "SELECT COUNT(*) AS row_count FROM bbc;"
+  metrics:
+    - row_count:
+        usage: "GAUGE"
+        description: "Number of rows in the bbc table"
+
+last_updated_query:
+  query: "SELECT EXTRACT(EPOCH FROM MAX(etl_date)) AS last_updated FROM bbc;"
+  metrics:
+    - last_updated:
+        usage: "GAUGE"
+        description: "Last updated time in the bbc table"
+
+daily_inserts_query:
+  query: |
+    SELECT
+      DATE(etl_date) AS insert_date,
+      COUNT(*) AS inserts_per_day
+    FROM bbc
+    GROUP BY insert_date
+  metrics:
+    - inserts_per_day:
+        usage: "GAUGE"
+        description: "Number of rows inserted per day"
