@@ -97,9 +97,9 @@ jobs:
         username: ec2-user
         key: ${{ env.PRIVATE_SSH_KEY }}
         source: |
-          ./deployment_batch/docker-compose.yml
-          ./deployment_batch/monitoring/prometheus.yml
-          ./deployment_batch/monitoring/queries.yml
+          deployment_batch/docker-compose.yml
+          deployment_batch/monitoring/prometheus.yml
+          deployment_batch/monitoring/queries.yml
         target: "."
 
     - name: deploy images to EC2
