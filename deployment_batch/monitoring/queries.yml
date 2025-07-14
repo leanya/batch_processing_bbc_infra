@@ -23,3 +23,5 @@ daily_inserts_query:
     - inserts_per_day:
         usage: "GAUGE"
         description: "Number of rows inserted per day"
+        labels:
+          - insert_date

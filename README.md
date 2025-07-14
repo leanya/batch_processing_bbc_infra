@@ -6,8 +6,9 @@ This project integrates infrastructure provisioning and CI/CD deployment pipelin
 
 - Main App Repo: `batch-processing-bbc`
     - Automates the extraction, processing, and visualization of BBC news headlines
-- Infrastructure Repo: `batch-processing-bbc-infra` (this repo)
+- Infrastructure Repo: `batch-processing-bbc-infra` (this repository)
     - Provisions AWS infrastructure and automates deployment using Terraform + GitHub Actions
+    - Incorporates Grafana and Prometheus to track application health and metrics 
 
 #### Infrastructure as Code (Terraform)
 
