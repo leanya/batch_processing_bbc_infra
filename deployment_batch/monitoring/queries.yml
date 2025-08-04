@@ -12,16 +12,16 @@ last_updated_query:
         usage: "GAUGE"
         description: "Last updated time in the bbc table"
 
-daily_inserts_query:
-  query: |
-    SELECT
-      DATE(etl_date) AS insert_date,
-      COUNT(*) AS inserts_per_day
-    FROM bbc
-    GROUP BY insert_date
-  metrics:
-    - inserts_per_day:
-        usage: "GAUGE"
-        description: "Number of rows inserted per day"
-        labels:
-          - insert_date
+# daily_inserts_query:
+#   query: |
+#     SELECT
+#       DATE(etl_date) AS insert_date,
+#       COUNT(*) AS inserts_per_day
+#     FROM bbc
+#     GROUP BY insert_date
+#   metrics:
+#     - inserts_per_day:
+#         usage: "GAUGE"
+#         description: "Number of rows inserted per day"
+#         labels:
+#           - insert_date
